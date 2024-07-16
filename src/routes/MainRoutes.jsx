@@ -9,7 +9,7 @@ import AddApartment from "../components/apartments/AddApartment";
 const MainRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<h1>пока что Home Page</h1>} />
+      <Route path="/" />
       <Route path="/sign-up" element={<Register />} />
       <Route path="/sign-in" element={<Login />} />
       <Route path="*" element={<h1>NOT FOUND PAGE</h1>} />

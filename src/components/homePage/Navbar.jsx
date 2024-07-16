@@ -74,11 +74,11 @@ const Navbar = () => {
             alt=""
           />
         </a>
-        <ul>
+        {/* <ul>
           <li onClick={() => navigate("/addApartment")}>Add Apartment</li>
           <li onClick={() => navigate("/apartmentList")}> Apartment list </li>
-        </ul>
-        {currentUser ? currentUser : "No auth user"}
+        </ul> */}
+        {currentUser ? currentUser : null}
         <div className="place">
           <span onClick={() => navigate("/addApartment")}>
             Airbnb your place
@@ -96,11 +96,11 @@ const Navbar = () => {
           {menuVisible && (
             <div className="avatar_menu">
               <ul>
-                <li onClick={() => navigate("/sign-in")}>Войти</li>
-                <li onClick={() => navigate("/sign-up")}>Зарегистрироваться</li>
-                <li>Сдать жилье на AirBnb</li>
-                <li>Центр помощи</li>
-                {currentUser ? <li onClick={handleLogOut}>Выйти</li> : null}
+                <li onClick={() => navigate("/sign-in")}>Log in</li>
+                <li onClick={() => navigate("/sign-up")}>Sign up</li>
+                <li>Rent your place</li>
+                <li>Help center</li>
+                {currentUser ? <li onClick={handleLogOut}>Logout</li> : null}
               </ul>
             </div>
           )}
