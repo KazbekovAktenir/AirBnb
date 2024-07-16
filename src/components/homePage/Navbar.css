@@ -6,8 +6,6 @@
   box-sizing: border-box;
 }
 .logo {
-  width: 118px;
-  height: 64px;
   padding-top: 30px;
 }
 .icon {
@@ -15,7 +13,14 @@
   height: 32px;
   display: block;
 }
-
+.place {
+  cursor: pointer;
+  padding: 12px;
+}
+.place:hover {
+  border-radius: 50px;
+  background-color: #f0efef;
+}
 .search_box {
   width: 480px;
 }
@@ -131,4 +136,92 @@
 .next_controlls img {
   width: 25px;
   height: 25px;
+}
+
+.bar {
+  margin-top: 30px;
+  margin-left: 300px;
+  width: 60%;
+  background: white;
+  box-shadow: 0 0 5px hsl(0 0% 78%);
+  height: 55px;
+  border-radius: 100vw;
+  display: flex;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  align-items: center;
+}
+
+.bar div {
+  border-radius: inherit;
+  padding: 0.8rem 1.5rem;
+  transition: background 250ms ease;
+}
+.bar p {
+  padding-top: 15px;
+}
+.bar div:hover {
+  background: hsl(0 0% 94%);
+}
+
+.location {
+  width: 34%;
+}
+.check-in,
+.check-out,
+.guests {
+  width: 22%;
+}
+
+input[type="text"] {
+  background: none;
+  padding-bottom: 15px;
+  border: none;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}
+
+::placeholder {
+  font-size: 13px;
+}
+
+.guests {
+  position: relative;
+}
+.guests span {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: #ff385c;
+  color: white;
+  font-size: 0.8rem;
+  padding: 0.7rem;
+  border-radius: 50%;
+}
+
+.bar > div {
+  position: relative;
+}
+
+.bar > div::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 55%;
+  background: hsl(0 0% 90%);
+}
+
+.bar > div:nth-of-type(1)::before {
+  background: transparent;
+}
+
+.bar > div:hover::before {
+  background: transparent;
 }

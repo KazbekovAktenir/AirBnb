@@ -14,8 +14,9 @@ import prev from "./assets/prev.png";
 import next from "./assets/next.png";
 import avatar from "./assets/avatar_icon.png";
 import "./Navbar.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContextProvider";
+import { Button } from "bootstrap";
 
 const Navbar = () => {
   const { currentUser, handleLogOut } = useAuth();
@@ -64,15 +65,25 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar_container">
-        <a href="" className="logo"></a>
+        <a href="" onClick={() => navigate("/")}>
+          <img
+            className="logo"
+            width={140}
+            height={80}
+            src="https://cdn.prod.website-files.com/6047a9e35e5dc54ac86ddd90/6387b574438cb3aac7fcf8c5_8QxOTbpyisEwldvyhwvfa_LhpqNLyGmJagh6i7fTgqg.png"
+            alt=""
+          />
+        </a>
         <ul>
           <li onClick={() => navigate("/addApartment")}>Add Apartment</li>
-          <li onClick={() => navigate("/apartmentList")}>Apartment List</li>
+          <li onClick={() => navigate("/apartmentList")}> Apartment list </li>
         </ul>
-        <div className="search_box">
-          <input type="text" name="" id="" />
-        </div>
         {currentUser ? currentUser : "No auth user"}
+        <div className="place">
+          <span onClick={() => navigate("/addApartment")}>
+            Airbnb your place
+          </span>
+        </div>
         <div className="avatar_box">
           <button className="avatar_icon" onClick={toggleMenu}>
             <div className="avatar_spans">
@@ -95,7 +106,27 @@ const Navbar = () => {
           )}
         </div>
       </div>
-
+      <div className="bar">
+        <div className="location">
+          <p>Location</p>
+          <input type="text" placeholder="Where are you going?" />
+        </div>
+        <div className="check-in">
+          <p>Check in</p>
+          <input type="text" placeholder="Add dates" />
+        </div>
+        <div className="check-out">
+          <p>Check out</p>
+          <input type="text" placeholder="Add dates" />
+        </div>
+        <div className="guests">
+          <p>Guests</p>
+          <input type="text" placeholder="Add guests" />
+          <span>
+            <i className="lni lni-search-alt"></i>
+          </span>
+        </div>
+      </div>
       <div className="slider-container">
         {showPrev && (
           <button className="prev_controlls" onClick={scrollLeft}>
