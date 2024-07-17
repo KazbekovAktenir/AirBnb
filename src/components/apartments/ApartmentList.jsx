@@ -1,60 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import ApartmentCard from "./ApartmentCard";
-// import { useApartment } from "../../context/ApartmentContextProvider";
-// import { useSearchParams } from "react-router-dom";
-
-// const ApartmentList = () => {
-//   const { apartments, getApartments, pages } = useApartment();
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [searchParams, setSearchParams] = useSearchParams();
-
-//   useEffect(() => {
-//     getApartments();
-//   }, [searchParams]);
-
-//   useEffect(() => {
-//     setSearchParams({ page: currentPage });
-//   }, [currentPage]);
-
-//   const getPagesCount = () => {
-//     const pageCountArr = [];
-//     for (let i = 1; i <= pages; i++) {
-//       pageCountArr.push(i);
-//     }
-//     return pageCountArr;
-//   };
-
-//   if (currentPage < 1) setCurrentPage(1);
-//   if (currentPage > pages) setCurrentPage(pages);
-
-//   return (
-//     <div>
-//       <h1>Apartament List</h1>
-//       {apartments.map((elem) => (
-//         <ApartmentCard key={elem.id} elem={elem} />
-//       ))}
-
-//       <div className="pagination">
-//         <button
-//           onClick={() => setCurrentPage(currentPage - 1)}
-//           className="prev"
-//         >
-//           Prev
-//         </button>
-//         <div className="page_numbers">{renderPagination()}</div>
-//         <button
-//           onClick={() => setCurrentPage(currentPage + 1)}
-//           className="next"
-//         >
-//           Next
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ApartmentList;
-
 import React, { useEffect, useState } from "react";
 import { useApartment } from "../../context/ApartmentContextProvider";
 import ApartmentCard from "./ApartmentCard";
@@ -62,7 +5,7 @@ import ApartmentCard from "./ApartmentCard";
 const ApartmentList = () => {
   const { getApartments, apartments } = useApartment();
   const [currentPage, setCurrentPage] = useState(1);
-  const apartmentsPerPage = 3;
+  const apartmentsPerPage = 5;
 
   useEffect(() => {
     getApartments();

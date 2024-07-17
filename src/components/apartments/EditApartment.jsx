@@ -1,116 +1,113 @@
-// // import React, { useEffect, useState } from "react";
-// // import { useParams, useNavigate } from "react-router-dom";
-// // import { useApartment } from "../../context/ApartmentContextProvider";
-// import React, { useEffect, useState } from "react";
-// import { useParams, useNavigate } from "react-router-dom";
-// import { useApartment } from "../../context/ApartmentContextProvider";
-
-// const EditApartment = () => {
-//   const { id } = useParams(); // Получение ID квартиры из URL
-//   const { oneApartment, getOneApartment, editApartment } = useApartment(); // Доступ к функциям контекста
-//   const [apartment, setApartment] = useState({
-//     title: "",
-//     location: "",
-//     price: 0,
-//     education: "",
-//     description: "",
-//     count_views: 0,
-//   });
-//   const navigate = useNavigate(); // Для навигации после успешного редактирования
-
-//   useEffect(() => {
-//     getOneApartment(id); // Получение информации о квартире при загрузке компонента
-//   }, [id, getOneApartment]);
-
-//   useEffect(() => {
-//     if (oneApartment) {
-//       setApartment({
-//         title: oneApartment.title || "",
-//         location: oneApartment.location || "",
-//         price: oneApartment.price || 0,
-//         education: oneApartment.education || "",
-//         description: oneApartment.description || "",
-//         count_views: oneApartment.count_views || 0,
-//       });
-//     }
-//   }, [oneApartment]);
-
-//   const handleInputChange = (e) => {
-//     const { name, value, type } = e.target;
-//     setApartment((prevState) => ({
-//       ...prevState,
-//       [name]: type === "number" ? Number(value) : value,
-//     }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await editApartment(id, apartment);
-//       navigate(`/apartments/${id}`); // Перенаправление на страницу квартиры после успешного редактирования
-//     } catch (error) {
-//       console.error("Ошибка при редактировании квартиры:", error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h1>Edit Apartment</h1>
-//       <form onSubmit={handleSubmit}>
-//         <input
-//           name="title"
-//           type="text"
-//           placeholder="Title"
-//           value={apartment.title}
-//           onChange={handleInputChange}
-//         />
-//         <input
-//           name="location"
-//           type="text"
-//           placeholder="Location"
-//           value={apartment.location}
-//           onChange={handleInputChange}
-//         />
-//         <input
-//           name="price"
-//           type="number"
-//           placeholder="Price"
-//           value={apartment.price}
-//           onChange={handleInputChange}
-//         />
-//         <input
-//           name="education"
-//           type="text"
-//           placeholder="Education"
-//           value={apartment.education}
-//           onChange={handleInputChange}
-//         />
-//         <input
-//           name="description"
-//           type="text"
-//           placeholder="Description"
-//           value={apartment.description}
-//           onChange={handleInputChange}
-//         />
-//         <input
-//           name="count_views"
-//           type="number"
-//           placeholder="Count Views"
-//           value={apartment.count_views}
-//           onChange={handleInputChange}
-//         />
-//         <button type="submit">Save Changes</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default EditApartment;
-
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useApartment } from "../../context/ApartmentContextProvider";
+import { useParams } from "react-router-dom";
 
 const EditApartment = () => {
-  return <div></div>;
+  const { id } = useParams();
+  const {
+    oneApartment,
+    getOneApartment,
+    categories,
+    getCategories,
+    editApartment,
+    getApartments,
+  } = useApartment();
+
+  const [title, setTitle] = useState("");
+  const [location, setLocation] = useState("");
+  const [price, setPrice] = useState("");
+  const [education, setEducation] = useState("");
+  const [description, setDescription] = useState("");
+  // const [countViews, setCountViews] = useState("");
+  const [count_views, setCountViews] = useState("");
+  const [category, setCategory] = useState("");
+
+  useEffect(() => {
+    getCategories();
+    getOneApartment(id);
+  }, [id]);
+
+  useEffect(() => {
+    if (oneApartment) {
+      setTitle(oneApartment.title || "");
+      setLocation(oneApartment.location || "");
+      setPrice(oneApartment.price || "");
+      setEducation(oneApartment.education || "");
+      setDescription(oneApartment.description || "");
+      setCountViews(oneApartment.count_views || "");
+      setCategory(oneApartment.category || "");
+    }
+  }, [oneApartment]);
+
+  const handleClick = () => {
+    const updatedApartment = {
+      title,
+      location,
+      price: price.toString(), // Преобразование в строку
+      education,
+      description,
+      // count_views: parseInt(countViews, 10), // Преобразование в целое число
+      count_views, // Преобразование в целое число
+      category,
+    };
+    editApartment(id, updatedApartment);
+    getApartments();
+  };
+
+  return (
+    <div>
+      <h1>Edit Apartment</h1>
+      <input
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        type="text"
+        placeholder="Название"
+      />
+      <input
+        value={location}
+        onChange={(e) => setLocation(e.target.value)}
+        type="text"
+        placeholder="Локация"
+      />
+      <input
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+        type="number"
+        // type="text"
+        placeholder="Цена"
+      />
+      <input
+        value={education}
+        onChange={(e) => setEducation(e.target.value)}
+        type="text"
+        placeholder="Характеристики что есть"
+      />
+      <input
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        type="text"
+        placeholder="Описание"
+      />
+      <input
+        // value={countViews}
+        value={count_views}
+        onChange={(e) => setCountViews(e.target.value)}
+        type="number"
+        // type="text"
+        placeholder="Количество просмотров"
+      />
+      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <option value="">Категории</option>
+        {categories &&
+          categories.map((elem) => (
+            <option value={elem.name} key={elem.name}>
+              {elem.name}
+            </option>
+          ))}
+      </select>
+      <button onClick={handleClick}>Save Changes</button>
+    </div>
+  );
 };
 
 export default EditApartment;

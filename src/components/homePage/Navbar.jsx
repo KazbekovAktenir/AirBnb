@@ -19,7 +19,10 @@ import { useAuth } from "../../context/AuthContextProvider";
 import { Button } from "bootstrap";
 
 const Navbar = () => {
-  const { currentUser, handleLogOut } = useAuth();
+  const { checkAuth, currentUser, handleLogOut } = useAuth();
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   const sliderRef = useRef(null);
   const [showPrev, setShowPrev] = useState(false);
@@ -74,10 +77,11 @@ const Navbar = () => {
             alt=""
           />
         </a>
-        {/* <ul>
+        <ul>
           <li onClick={() => navigate("/addApartment")}>Add Apartment</li>
           <li onClick={() => navigate("/apartmentList")}> Apartment list </li>
-        </ul> */}
+          <li onClick={() => navigate("/cart")}> Cart </li>
+        </ul>
         {currentUser ? currentUser : null}
         <div className="place">
           <span onClick={() => navigate("/addApartment")}>

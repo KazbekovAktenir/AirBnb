@@ -1,6 +1,7 @@
 import React from "react";
 import { useApartment } from "../../context/ApartmentContextProvider";
-import EditApartment from "./EditApartment";
+
+import { Link } from "react-router-dom";
 
 const ApartmentCard = ({ elem }) => {
   const { deleteApartment } = useApartment();
@@ -15,8 +16,10 @@ const ApartmentCard = ({ elem }) => {
       Category: {elem.category}
       {elem.owner ? (
         <>
-          <button onClick={() => deleteApartment(elem.id)}>DELETE</button>{" "}
-          <button onClick={() => EditApartment(elem.id)}>Edit Apartment</button>
+          <button onClick={() => deleteApartment(elem.id)}>DELETE</button>
+          <Link to={`/editApartment/${elem.id}`}>
+            <button>Edit Apartment</button>
+          </Link>
         </>
       ) : null}
     </div>

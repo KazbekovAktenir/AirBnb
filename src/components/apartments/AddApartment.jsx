@@ -8,7 +8,7 @@ const AddApartment = () => {
   const [price, setPrice] = useState("");
   const [education, setEducation] = useState("");
   const [description, setDescription] = useState("");
-  const [countViews, setCountViews] = useState("");
+  const [count_views, setCountViews] = useState("");
   const [category, setCategory] = useState("");
   useEffect(() => {
     getCategories();
@@ -25,7 +25,7 @@ const AddApartment = () => {
     newApartment.append("price", price);
     newApartment.append("education", education);
     newApartment.append("description", description);
-    newApartment.append("countViews", countViews);
+    newApartment.append("count_views", count_views);
     newApartment.append("category", category);
     addApartment(newApartment);
   };
@@ -45,6 +45,7 @@ const AddApartment = () => {
       />
       <input
         onChange={(e) => setPrice(e.target.value)}
+        // type="text"
         type="number"
         placeholder="Цена"
       />

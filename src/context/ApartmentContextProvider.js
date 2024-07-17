@@ -1,14 +1,17 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { API } from "../helpers/const";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const apartmentContext = createContext();
 export const useApartment = () => useContext(apartmentContext);
 
 const ApartmentContextProvider = ({ children }) => {
+  const navigate = useNavigate();
   const INIT_STATE = {
     categories: [],
     apartments: [],
+    oneApartment: null, //временно
     pages: 10,
   };
 
@@ -30,7 +33,7 @@ const ApartmentContextProvider = ({ children }) => {
   const getConfig = () => {
     const tokens = JSON.parse(localStorage.getItem("tokens"));
     console.log("Токены из localStorage:", tokens);
-    const Authorization = `Bearer ${tokens.access}`;
+    const Authorization = `Bearer ${tokens.access.access}`;
     const config = {
       headers: { Authorization },
     };
@@ -50,7 +53,6 @@ const ApartmentContextProvider = ({ children }) => {
         "Ошибка при обновлении токена:",
         error.response ? error.response.data : error.message
       );
-      // Если обновление не удалось, нужно обработать это (например, перенаправить на страницу логина)
     }
   };
 
@@ -74,6 +76,7 @@ const ApartmentContextProvider = ({ children }) => {
   const addApartment = async (apartment) => {
     try {
       await axios.post(`${API}/apartment/`, apartment, getConfig());
+      navigate("/apartmentList");
     } catch (error) {
       console.log(error);
     }
@@ -100,24 +103,25 @@ const ApartmentContextProvider = ({ children }) => {
     }
   };
 
-  // edit
-  const editApartment = async (id, updatedApartment) => {
+  //! edit
+  const editApartment = async (id, editedApartment) => {
     try {
       await axios.patch(
         `${API}/apartment/${id}/`,
-        updatedApartment,
+        editedApartment,
         getConfig()
       );
-      getApartments(); // Обновляем список после редактирования
+      await getApartments();
+      navigate("/apartmentList");
     } catch (error) {
-      console.error("Ошибка при редактировании квартиры:", error);
+      console.log(error);
     }
   };
 
-  // Получение информации о одной квартире
   const getOneApartment = async (id) => {
     try {
-      const { data } = await axios.get(`${API}/apartment/${id}`, getConfig());
+      const { data } = await axios.get(`${API}/apartment/${id}/`, getConfig());
+      console.log("Полученные данные о квартире:", data);
       dispatch({
         type: "GET_ONE_APARTMENT",
         payload: data,
@@ -133,10 +137,11 @@ const ApartmentContextProvider = ({ children }) => {
     addApartment,
     getApartments,
     apartments: state.apartments,
+    oneApartment: state.oneApartment,
     deleteApartment,
     pages: state.pages,
-    getOneApartment,
     editApartment,
+    getOneApartment,
   };
   return (
     <apartmentContext.Provider value={values}>
