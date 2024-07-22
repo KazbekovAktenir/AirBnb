@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useApartment } from "../../context/ApartmentContextProvider";
 import { useParams } from "react-router-dom";
+import { useApartment } from "../../context/ApartmentContextProvider";
 
 const EditApartment = () => {
   const { id } = useParams();

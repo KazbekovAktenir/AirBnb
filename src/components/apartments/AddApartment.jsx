@@ -7,6 +7,7 @@ const AddApartment = () => {
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState("");
   const [education, setEducation] = useState("");
+  const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const [count_views, setCountViews] = useState("");
   const [category, setCategory] = useState("");
@@ -24,6 +25,7 @@ const AddApartment = () => {
     newApartment.append("location", location);
     newApartment.append("price", price);
     newApartment.append("education", education);
+    newApartment.append("image", image);
     newApartment.append("description", description);
     newApartment.append("count_views", count_views);
     newApartment.append("category", category);
@@ -53,6 +55,11 @@ const AddApartment = () => {
         onChange={(e) => setEducation(e.target.value)}
         type="text"
         placeholder="Характеристики что есть"
+      />
+      <input
+        onChange={(e) => setImage(e.target.value)}
+        type="text"
+        placeholder="image"
       />
       <input
         onChange={(e) => setDescription(e.target.value)}

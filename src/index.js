@@ -5,13 +5,16 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import AuthContextProvider from "./context/AuthContextProvider";
 import ApartmentContextProvider from "./context/ApartmentContextProvider";
+import CartContextProvider from "./context/CartContextProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <ApartmentContextProvider>
       <AuthContextProvider>
-        <App />
+        <CartContextProvider>
+          <App />
+        </CartContextProvider>
       </AuthContextProvider>
     </ApartmentContextProvider>
   </BrowserRouter>

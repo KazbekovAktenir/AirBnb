@@ -1,13 +1,15 @@
 import React from "react";
 import { useApartment } from "../../context/ApartmentContextProvider";
-
 import { Link } from "react-router-dom";
+import "./ApartmentCard.css";
+import { useCart } from "../../context/CartContextProvider";
 
 const ApartmentCard = ({ elem }) => {
   const { deleteApartment } = useApartment();
+  const { addApartmentToCart } = useCart();
   console.log(`Apartment ID: ${elem.id}, is_author: ${elem.owner}`);
   return (
-    <div>
+    <div className="apartment_card">
       Title: {elem.title}
       Location: {elem.location}
       Education: {elem.education}
@@ -16,10 +18,13 @@ const ApartmentCard = ({ elem }) => {
       Category: {elem.category}
       {elem.owner ? (
         <>
-          <button onClick={() => deleteApartment(elem.id)}>DELETE</button>
+          <button className="buttons" onClick={() => deleteApartment(elem.id)}>
+            DELETE
+          </button>
           <Link to={`/editApartment/${elem.id}`}>
-            <button>Edit Apartment</button>
+            <button className="edit_button">Edit Apartment</button>
           </Link>
+          <button onClick={() => addApartmentToCart(elem)}>Add To Cart</button>
         </>
       ) : null}
     </div>

@@ -73,12 +73,44 @@ const AuthContextProvider = ({ children }) => {
     navigate("/sign-in");
   };
 
+  // ! handleChange
+  const handleChange = async (formData) => {
+    try {
+      await axios.post(`${API}/account/change_password/`, formData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // ! handleForgot
+  const handleForgot = async (formData) => {
+    try {
+      await axios.post(`${API}/account/forgot_password/`, formData);
+      navigate("/reset-password");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // ! handleForgotConfirm
+  const handleForgotConfirm = async (formData) => {
+    try {
+      await axios.post(`${API}/account/forgot_password_confirm/`, formData);
+      navigate("/sign-in");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const values = {
     handleSignUp,
     handleSignIn,
     currentUser,
     checkAuth,
     handleLogOut,
+    handleChange,
+    handleForgot,
+    handleForgotConfirm,
   };
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 };

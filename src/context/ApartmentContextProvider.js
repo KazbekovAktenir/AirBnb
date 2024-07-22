@@ -74,7 +74,7 @@ const ApartmentContextProvider = ({ children }) => {
   };
   //! add
   const addApartment = async (apartment) => {
-    try {
+    try { 
       await axios.post(`${API}/apartment/`, apartment, getConfig());
       navigate("/apartmentList");
     } catch (error) {

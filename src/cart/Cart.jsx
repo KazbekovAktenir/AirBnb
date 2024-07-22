@@ -23,28 +23,28 @@ const Cart = () => {
             </div>
           </div>
           <div className="body">
-            {/* {cart.apartments.map((elem) => ( 
-              <div> 
-                <p>{elem.item.title}</p> 
-                <p>{elem.item.category}</p> 
-                <p>{elem.item.price}</p> 
-                <div> 
-                  <input 
-                    type="number" 
-                    min={1} 
-                    max={20} 
-                    defaultValue={elem.count} 
-                    onChange={(e) => 
-                      chaingeApartmentCart(elem.item.id, e.target.value) 
-                    } 
-                  /> 
-                </div> 
-                <p>{elem.subPrice}</p> 
-                <button onClick={() => deleteApartmentFromCart(elem.item.id)}> 
-                  Delete 
-                </button> 
-              </div> 
-            ))} */}
+            {cart.apartments.map((elem) => (
+              <div>
+                <p>{elem.item.title}</p>
+                <p>{elem.item.category}</p>
+                <p>{elem.item.price}</p>
+                <div>
+                  <input
+                    type="number"
+                    min={1}
+                    max={20}
+                    defaultValue={elem.count}
+                    onChange={(e) =>
+                      chaingeApartmentCart(elem.item.id, e.target.value)
+                    }
+                  />
+                </div>
+                <p>{elem.subPrice}</p>
+                <button onClick={() => deleteApartmentFromCart(elem.item.id)}>
+                  Delete
+                </button>
+              </div>
+            ))}
           </div>
         </div>
       </div>
