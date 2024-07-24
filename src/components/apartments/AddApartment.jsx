@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useApartment } from "../../context/ApartmentContextProvider";
+import { Link } from "react-router-dom";
+import "./AddApartment.css";
 
 const AddApartment = () => {
   const { categories, addApartment, getCategories } = useApartment();
@@ -15,9 +17,7 @@ const AddApartment = () => {
     getCategories();
   }, []);
 
-  useEffect(() => {
-    console.log("Категории в компоненте AddApartment:", categories);
-  }, [categories]);
+  useEffect(() => {}, [categories]);
 
   const handleClick = (apartment) => {
     const newApartment = new FormData();
@@ -33,54 +33,137 @@ const AddApartment = () => {
   };
 
   return (
-    <div>
-      <h1>Add Apartment</h1>
-      <input
-        onChange={(e) => setTitle(e.target.value)}
-        type="text"
-        placeholder="Название"
-      />
-      <input
-        onChange={(e) => setLocation(e.target.value)}
-        type="text"
-        placeholder="Локация"
-      />
-      <input
-        onChange={(e) => setPrice(e.target.value)}
-        // type="text"
-        type="number"
-        placeholder="Цена"
-      />
-      <input
-        onChange={(e) => setEducation(e.target.value)}
-        type="text"
-        placeholder="Характеристики что есть"
-      />
-      <input
-        onChange={(e) => setImage(e.target.value)}
-        type="text"
-        placeholder="image"
-      />
-      <input
-        onChange={(e) => setDescription(e.target.value)}
-        type="text"
-        placeholder="Описание"
-      />
-      <input
-        onChange={(e) => setCountViews(e.target.value)}
-        type="number"
-        placeholder="Количество просмотров"
-      />
-      <select onChange={(e) => setCategory(e.target.value)}>
-        <option value="">Категории</option>
-        {categories &&
-          categories.map((elem) => (
-            <option value={elem.name} key={elem.name}>
-              {elem.name}
-            </option>
-          ))}
-      </select>
-      <button onClick={handleClick}>Add Apartment</button>
+    <div className="body5">
+      <div className="container5">
+        <h2>Add Apartment</h2>
+
+        <table>
+          <tr>
+            <td>
+              <label>Title:</label>
+            </td>
+            <td>
+              <input
+                className="inp"
+                type="text"
+                id="name"
+                name="name"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Location:</label>
+            </td>
+            <td>
+              <input
+                className="inp"
+                type="text"
+                id="price"
+                name="price"
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="quantity">Price:</label>
+            </td>
+            <td>
+              <input
+                className="inp"
+                type="number"
+                id="quantity"
+                name="quantity"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="quantity">Education:</label>
+            </td>
+            <td>
+              <input
+                className="inp"
+                type="text"
+                id="quantity"
+                name="quantity"
+                onChange={(e) => setEducation(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="quantity">Image:</label>
+            </td>
+            <td>
+              <input
+                className="inp"
+                type="file"
+                id="quantity"
+                name="quantity"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="quantity">Description:</label>
+            </td>
+            <td>
+              <input
+                className="inp"
+                type="text"
+                id="quantity"
+                name="quantity"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="quantity">Number of views:</label>
+            </td>
+            <td>
+              <input
+                className="inp"
+                type="number"
+                id="quantity"
+                name="quantity"
+                onChange={(e) => setCountViews(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Category</label>
+            </td>
+            <td>
+              <select onChange={(e) => setCategory(e.target.value)}>
+                <option>Category</option>
+                {categories &&
+                  categories.map((elem) => (
+                    <option value={elem.name} key={elem.name}>
+                      {elem.name}
+                    </option>
+                  ))}
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <Link to={"/apartmentList"}>
+                <button id="addItemBtn" onClick={handleClick}>
+                  Add Apartment
+                </button>
+              </Link>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   );
 };

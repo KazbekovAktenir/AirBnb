@@ -11,19 +11,21 @@ const ApartmentContextProvider = ({ children }) => {
   const INIT_STATE = {
     categories: [],
     apartments: [],
-    oneApartment: null, //временно
+    oneApartment: null,
     pages: 10,
+    // comments: [],
   };
 
   const reducer = (state = INIT_STATE, action) => {
     switch (action.type) {
       case "GET_CATEGORIES":
-        console.log("Редьюсер получил категории:", action.payload);
         return { ...state, categories: action.payload };
       case "GET_APARTMENTS":
         return { ...state, apartments: action.payload };
       case "GET_ONE_APARTMENT":
         return { ...state, oneApartment: action.payload };
+      // case "GET_COMMENTS":
+      //   return { ...state, comments: action.payload };
       default:
         return state;
     }
@@ -32,13 +34,10 @@ const ApartmentContextProvider = ({ children }) => {
 
   const getConfig = () => {
     const tokens = JSON.parse(localStorage.getItem("tokens"));
-    console.log("Токены из localStorage:", tokens);
     const Authorization = `Bearer ${tokens.access.access}`;
-    const config = {
+    return {
       headers: { Authorization },
     };
-    console.log("Конфигурация запроса:", config);
-    return config;
   };
 
   const refreshToken = async () => {
@@ -49,32 +48,24 @@ const ApartmentContextProvider = ({ children }) => {
       });
       localStorage.setItem("tokens", JSON.stringify(response.data));
     } catch (error) {
-      console.error(
-        "Ошибка при обновлении токена:",
-        error.response ? error.response.data : error.message
-      );
+      console.log(error);
     }
   };
 
   const getCategories = async () => {
     try {
       const { data } = await axios(`${API}/apartment/category/`, getConfig());
-      console.log("Полученные данные категорий:", data);
       dispatch({
         type: "GET_CATEGORIES",
         payload: data,
-        // payload: data.results,
       });
     } catch (error) {
-      console.error(
-        "Ошибка при получении категорий:",
-        error.response ? error.response.data : error.message
-      );
+      console.log(error);
     }
   };
-  //! add
+
   const addApartment = async (apartment) => {
-    try { 
+    try {
       await axios.post(`${API}/apartment/`, apartment, getConfig());
       navigate("/apartmentList");
     } catch (error) {
@@ -82,7 +73,6 @@ const ApartmentContextProvider = ({ children }) => {
     }
   };
 
-  //! get
   const getApartments = async () => {
     const { data } = await axios(
       `${API}/apartment/${window.location.search}`,
@@ -93,7 +83,7 @@ const ApartmentContextProvider = ({ children }) => {
       payload: data.results,
     });
   };
-  //! delete
+
   const deleteApartment = async (id) => {
     try {
       await axios.delete(`${API}/apartment/${id}/`, getConfig());
@@ -103,7 +93,6 @@ const ApartmentContextProvider = ({ children }) => {
     }
   };
 
-  //! edit
   const editApartment = async (id, editedApartment) => {
     try {
       await axios.patch(
@@ -121,7 +110,6 @@ const ApartmentContextProvider = ({ children }) => {
   const getOneApartment = async (id) => {
     try {
       const { data } = await axios.get(`${API}/apartment/${id}/`, getConfig());
-      console.log("Полученные данные о квартире:", data);
       dispatch({
         type: "GET_ONE_APARTMENT",
         payload: data,
@@ -130,6 +118,27 @@ const ApartmentContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  // const addComment = async (commentData) => {
+  //   try {
+  //     await axios.post(`${API}/apartment/comments/`, commentData, getConfig());
+  //     await getComments(commentData.apartment); // Fetch updated comments
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // const getComments = async (apartmentId) => {
+  //   try {
+  //     const { data } = await axios(
+  //       `${API}/apartment/comments/${apartmentId}/`,
+  //       getConfig()
+  //     );
+  //     dispatch({ type: "GET_COMMENTS", payload: data });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const values = {
     categories: state.categories,
@@ -142,7 +151,12 @@ const ApartmentContextProvider = ({ children }) => {
     pages: state.pages,
     editApartment,
     getOneApartment,
+    refreshToken,
+    // addComment,
+    // getComments,
+    // comments: state.comments,
   };
+
   return (
     <apartmentContext.Provider value={values}>
       {children}

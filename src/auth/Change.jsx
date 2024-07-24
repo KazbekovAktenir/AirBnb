@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContextProvider";
 
-const ChangePassword = () => {
+const Change = () => {
   const { handleChange } = useAuth();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.preventDefault();
+
     if (!oldPassword.trim() || !newPassword.trim() || !newPassword2.trim()) {
-      alert("Please fill in all fields!");
+      alert("Пожалуйста, заполните все поля!");
       return;
     }
     if (newPassword !== newPassword2) {
-      alert("New passwords do not match!");
+      alert("Новые пароли не совпадают!");
       return;
     }
 
@@ -30,32 +31,33 @@ const ChangePassword = () => {
 
   return (
     <div>
-      <h1>Change Password</h1>
-      <input
-        type="password"
-        placeholder="Old Password"
-        value={oldPassword}
-        onChange={(e) => setOldPassword(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="New Password"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Confirm New Password"
-        value={newPassword2}
-        onChange={(e) => setNewPassword2(e.target.value)}
-      />
-      <button onClick={handleSave}>Change Password</button>
+      <h1>Смена пароля</h1>
+      <form onSubmit={handleSave}>
+        <input
+          type="password"
+          placeholder="Старый пароль"
+          value={oldPassword}
+          onChange={(e) => setOldPassword(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Новый пароль"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Подтвердите новый пароль"
+          value={newPassword2}
+          onChange={(e) => setNewPassword2(e.target.value)}
+        />
+        <button type="submit">Сменить пароль</button>
+      </form>
       <p>
-        Back to Login?
-        <Link to="/sign-in">Login</Link>
+        Вернуться ко входу? <Link to="/sign-in">Войти</Link>
       </p>
     </div>
   );
 };
 
-export default ChangePassword;
+export default Change;

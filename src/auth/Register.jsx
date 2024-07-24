@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContextProvider";
 import "./Reglog.css";
-import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const { handleSignUp } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const navigate = useNavigate();
 
   const handleSave = () => {
     if (!email.trim() || !password.trim() || !password2.trim()) {
@@ -28,43 +26,7 @@ const Register = () => {
     handleSignUp(formData);
   };
   return (
-    // <div>
-    //   <form>
-    //     <h1>Sign up</h1>
-    //     <div className="input_box">
-    //       <input
-    //         onChange={(e) => setEmail(e.target.value)}
-    //         type="text"
-    //         placeholder="email"
-    //       />
-    //       <i className="bx bxs-user"></i>
-    //     </div>
-    //     <div className="input_box">
-    //       <input
-    //         onChange={(e) => setPassword(e.target.value)}
-    //         type="password"
-    //         placeholder="password"
-    //       />
-    //       <i className="bx bxs-lock-alt"></i>
-    //     </div>
-    //     <div className="input_box">
-    //       <input
-    //         onChange={(e) => setPassword2(e.target.value)}
-    //         type="password"
-    //         placeholder="password2"
-    //       />
-    //       <i className="bx bxs-lock-alt"></i>
-    //     </div>
-
-    //     <button onClick={handleSave}>SignUp</button>
-    //     <div className="register-link">
-    //       <p>
-    //         Already have an account? <a href="/sign-in">Login</a>
-    //       </p>
-    //     </div>
-    //   </form>
-    // </div>
-    <div className="body">
+    <div className="body2">
       <div className="wrapper">
         <span className="bg-animate2"></span>
         <div className="form-box register">
@@ -77,7 +39,6 @@ const Register = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <label>Email</label>
-              <i class="bx bxs-envelope"></i>
             </div>
             <div className="input-box">
               <input
@@ -86,7 +47,6 @@ const Register = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <label>Password</label>
-              <i class="bx bxs-lock-alt"></i>
             </div>
             <div className="input-box">
               <input
@@ -95,7 +55,6 @@ const Register = () => {
                 onChange={(e) => setPassword2(e.target.value)}
               />
               <label>Confirm Password</label>
-              <i class="bx bxs-lock-alt"></i>
             </div>
             <button onClick={handleSave} type="submit" className="btn">
               Sign Up
@@ -103,7 +62,7 @@ const Register = () => {
             <div className="logreg-link">
               <p>
                 Already have an account ?
-                <a className="login-link" onClick={() => navigate("/sign-in")}>
+                <a className="login-link" href="/sign-in">
                   Login
                 </a>
               </p>

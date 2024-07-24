@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useApartment } from "../../context/ApartmentContextProvider";
 import ApartmentCard from "./ApartmentCard";
+import "./ApartmentList.css";
 
 const ApartmentList = () => {
   const { getApartments, apartments } = useApartment();
   const [currentPage, setCurrentPage] = useState(1);
-  const apartmentsPerPage = 5;
+  const apartmentsPerPage = 3;
 
   useEffect(() => {
     getApartments();
   }, []);
 
-  // Проверка на пустой массив apartments
   if (!apartments) {
     return <div>Loading...</div>;
   }
@@ -54,8 +54,7 @@ const ApartmentList = () => {
 
   return (
     <div className="container">
-      <h1>Apartment List</h1>
-      <div className="apartment-list">{renderApartments()}</div>
+      <div className="card_container">{renderApartments()}</div>
       <div className="pagination">
         <button
           className="prev"

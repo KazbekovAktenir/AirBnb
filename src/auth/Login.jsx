@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContextProvider";
 import "./Reglog.css";
-import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const { handleSignIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleSave = () => {
     if (!email.trim() || !password.trim()) {
@@ -22,34 +21,7 @@ const Login = () => {
   };
 
   return (
-    // <div>
-    //   <h1>Sign in</h1>
-    //   <div className="input_box">
-    //     <input
-    //       onChange={(e) => setEmail(e.target.value)}
-    //       type="text"
-    //       placeholder="email"
-    //     />
-    //   </div>
-    //   <div className="input_box">
-    //     <input
-    //       onChange={(e) => setPassword(e.target.value)}
-    //       type="password"
-    //       placeholder="password"
-    //     />
-    //   </div>
-    //   <div className="forgot_pass">
-    //     <a href="#">Forgot password?</a>
-    //   </div>
-
-    //   <button onClick={handleSave}>Signin</button>
-    //   <div className="register-link">
-    //     <p>
-    //       Dont have an account? <a href="/sign-up">SignUp</a>
-    //     </p>
-    //   </div>
-    // </div>
-    <div className="body">
+    <div className="body2">
       <div className="wrapper">
         <span className="bg-animate"></span>
         <div className="form-box login">
@@ -62,7 +34,7 @@ const Login = () => {
                 required
               />
               <label>Email</label>
-              <i class="bx bxs-envelope"></i>
+              <i className="bx bxs-envelope"></i>
             </div>
             <div className="input-box">
               <input
@@ -71,7 +43,10 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <label>Password</label>
-              <i class="bx bxs-lock-alt"></i>
+              <i className="bx bxs-lock-alt"></i>
+            </div>
+            <div className="forgot_pass">
+              <a href="/forgot  ">Forgot password?</a>
             </div>
             <button onClick={handleSave} type="submit" className="btn">
               Login
@@ -79,10 +54,7 @@ const Login = () => {
             <div className="logreg-link">
               <p>
                 Don't have an account ?
-                <a
-                  className="register-link"
-                  onClick={() => navigate("/sign-up")}
-                >
+                <a className="register-link" href="/sign-up">
                   Sign-up
                 </a>
               </p>

@@ -19,6 +19,8 @@ const CartContextProvider = ({ children }) => {
     switch (action.type) {
       case "GET_CART":
         return { ...state, cart: action.payload };
+      default:
+        return state;
     }
   };
 
@@ -79,7 +81,6 @@ const CartContextProvider = ({ children }) => {
     }
   };
 
-  //   Функ-ция для проверки наличие товара
   const checkApartmentInCart = (id) => {
     let cart = getLocalStorage();
     if (cart) {

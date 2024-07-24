@@ -10,6 +10,8 @@ import ForgotPassword from "../auth/ForgotPassword";
 import Forgot from "../auth/Forgot";
 import Change from "../auth/Change";
 import HomePage from "../pages/HomePage";
+import Detail from "../components/apartments/Detail";
+import Buy from "../components/homePage/Buy";
 
 const MainRoutes = () => {
   return (
@@ -24,7 +26,9 @@ const MainRoutes = () => {
       <Route path="/addApartment" element={<AddApartment />} />
       <Route path="/apartmentList" element={<ApartmentList />} />
       <Route path="/editApartment/:id" element={<EditApartment />} />
+      <Route path="/detail/:id" element={<Detail />} />
       <Route path="/cart" element={<CartPage />} />
+      <Route path="/buy" element={<Buy />} />
     </Routes>
   );
 };

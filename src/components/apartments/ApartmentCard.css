@@ -5,6 +5,23 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 500px;
+}
+
+.apartment_card_img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.apartment_details {
+  text-align: center;
 }
 
 .apartment_card h2 {
@@ -18,11 +35,11 @@
   color: #666;
 }
 
-.apartment_card .buttons {
+.deleteApartment_btn {
   margin-top: 15px;
 }
 
-.apartment_card .buttons button {
+.deleteApartment_btn button {
   margin-right: 10px;
   padding: 10px 15px;
   border: none;
@@ -33,18 +50,18 @@
   transition: background-color 0.3s ease;
 }
 
-.apartment_card .buttons button:hover {
+.deleteApartment_btn button:hover {
   background-color: #0056b3;
 }
 
-.apartment_card .buttons a {
+.deleteApartment_btn a {
   text-decoration: none;
 }
 
-.apartment_card .buttons .edit-button {
+.edit_button {
   background-color: #28a745;
 }
 
-.apartment_card .buttons .edit-button:hover {
+.edit_button:hover {
   background-color: #218838;
 }

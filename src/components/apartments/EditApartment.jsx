@@ -17,8 +17,9 @@ const EditApartment = () => {
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState("");
   const [education, setEducation] = useState("");
+  const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
-  // const [countViews, setCountViews] = useState("");
+
   const [count_views, setCountViews] = useState("");
   const [category, setCategory] = useState("");
 
@@ -33,6 +34,7 @@ const EditApartment = () => {
       setLocation(oneApartment.location || "");
       setPrice(oneApartment.price || "");
       setEducation(oneApartment.education || "");
+      setEducation(oneApartment.image || "");
       setDescription(oneApartment.description || "");
       setCountViews(oneApartment.count_views || "");
       setCategory(oneApartment.category || "");
@@ -43,11 +45,10 @@ const EditApartment = () => {
     const updatedApartment = {
       title,
       location,
-      price: price.toString(), // Преобразование в строку
+      price: price.toString(),
       education,
       description,
-      // count_views: parseInt(countViews, 10), // Преобразование в целое число
-      count_views, // Преобразование в целое число
+      count_views,
       category,
     };
     editApartment(id, updatedApartment);
@@ -73,7 +74,6 @@ const EditApartment = () => {
         value={price}
         onChange={(e) => setPrice(e.target.value)}
         type="number"
-        // type="text"
         placeholder="Цена"
       />
       <input
@@ -83,17 +83,21 @@ const EditApartment = () => {
         placeholder="Характеристики что есть"
       />
       <input
+        value={image}
+        onChange={(e) => setImage(e.target.files[0])}
+        type="file"
+        placeholder="image"
+      />
+      <input
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         type="text"
         placeholder="Описание"
       />
       <input
-        // value={countViews}
         value={count_views}
         onChange={(e) => setCountViews(e.target.value)}
         type="number"
-        // type="text"
         placeholder="Количество просмотров"
       />
       <select value={category} onChange={(e) => setCategory(e.target.value)}>

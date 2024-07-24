@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { createContext, useContext, useState } from "react";
 import { API } from "../helpers/const";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const authContext = createContext();
 export const useAuth = () => useContext(authContext);
@@ -13,16 +13,11 @@ const AuthContextProvider = ({ children }) => {
   //!sign-up
   const handleSignUp = async (formData) => {
     try {
-      console.log(formData); // Логирование данных формы
       const response = await axios.post(`${API}/account/sign-up/`, formData);
       console.log("Регистрация успешна:", response.data);
       navigate("/sign-in");
     } catch (error) {
       console.log(error);
-      console.error(
-        "Ошибка при регистрации:",
-        error.response ? error.response.data : error.message
-      );
     }
   };
 
@@ -36,10 +31,6 @@ const AuthContextProvider = ({ children }) => {
       navigate("/");
     } catch (error) {
       console.log(error);
-      console.error(
-        "Ошибка при входе:",
-        error.response ? error.response.data : error.message
-      );
     }
   };
   //! checkAuth
@@ -49,7 +40,7 @@ const AuthContextProvider = ({ children }) => {
       const { data } = await axios.post(`${API}/account/refresh/`, {
         refresh: tokens.refresh,
       });
-      console.log(data);
+
       localStorage.setItem(
         "tokens",
         JSON.stringify({ access: data, refresh: tokens.refresh })
@@ -58,10 +49,6 @@ const AuthContextProvider = ({ children }) => {
       setCurrentUser(email);
     } catch (error) {
       console.log(error);
-      console.error(
-        "Ошибка при проверке авторизации:",
-        error.response ? error.response.data : error.message
-      );
     }
   };
 
@@ -86,7 +73,7 @@ const AuthContextProvider = ({ children }) => {
   const handleForgot = async (formData) => {
     try {
       await axios.post(`${API}/account/forgot_password/`, formData);
-      navigate("/reset-password");
+      navigate("/forgotPassword");
     } catch (error) {
       console.log(error);
     }
@@ -94,6 +81,7 @@ const AuthContextProvider = ({ children }) => {
 
   // ! handleForgotConfirm
   const handleForgotConfirm = async (formData) => {
+    console.log("handleForgotConfirm called with:", formData);
     try {
       await axios.post(`${API}/account/forgot_password_confirm/`, formData);
       navigate("/sign-in");

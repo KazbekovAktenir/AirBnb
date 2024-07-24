@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContextProvider";
 
@@ -9,8 +8,9 @@ const Forgot = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!email.trim()) {
-      alert("Please enter your email!");
+      alert("Пожалуйста, введите ваш email!");
       return;
     }
 
@@ -23,23 +23,19 @@ const Forgot = () => {
 
   return (
     <div>
-      <h1>Forgot Your Password?</h1>
-      <p>
-        Enter your email address and we'll send you a link to reset your
-        password.
-      </p>
+      <h1>Забыли пароль?</h1>
+      <p>Введите ваш email, и мы отправим вам ссылку для сброса пароля.</p>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
-          placeholder="Enter your email"
+          placeholder="Введите ваш email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button type="submit">Send Reset Link</button>
+        <button type="submit">Отправить ссылку для сброса</button>
       </form>
       <p>
-        Back to Login?
-        <Link to="/sign-in">Login</Link>
+        Вернуться ко входу? <Link to="/sign-in">Войти</Link>
       </p>
     </div>
   );

@@ -14,15 +14,14 @@ import prev from "./assets/prev.png";
 import next from "./assets/next.png";
 import avatar from "./assets/avatar_icon.png";
 import "./Navbar.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContextProvider";
-import { Button } from "bootstrap";
 
 const Navbar = () => {
   const { checkAuth, currentUser, handleLogOut } = useAuth();
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, [checkAuth]);
 
   const sliderRef = useRef(null);
   const [showPrev, setShowPrev] = useState(false);
@@ -77,15 +76,16 @@ const Navbar = () => {
             alt=""
           />
         </a>
-        <ul>
-          <li onClick={() => navigate("/addApartment")}>Add Apartment</li>
-          <li onClick={() => navigate("/apartmentList")}> Apartment list </li>
-          <li onClick={() => navigate("/cart")}> Cart </li>
-        </ul>
-        {currentUser ? currentUser : null}
+        {currentUser ? (
+          <>
+            <ul className="navbar_cart">
+              <li onClick={() => navigate("/cart")}>Cart</li>
+            </ul>
+          </>
+        ) : null}
         <div className="place">
           <span onClick={() => navigate("/addApartment")}>
-            Airbnb your place
+            Airbnb your home
           </span>
         </div>
         <div className="avatar_box">
@@ -104,7 +104,7 @@ const Navbar = () => {
                 <li onClick={() => navigate("/sign-up")}>Sign up</li>
                 <li>Rent your place</li>
                 <li>Help center</li>
-                {currentUser ? <li onClick={handleLogOut}>Logout</li> : null}
+                {currentUser && <li onClick={handleLogOut}>Logout</li>}
               </ul>
             </div>
           )}
